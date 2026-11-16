@@ -1,0 +1,179 @@
+{
+  "description": "MCP/Chroma reais; nenhuma geração por LLM neste teste",
+  "tools_discovered": [
+    "search_knowledge",
+    "get_document",
+    "list_topics"
+  ],
+  "topics": {
+    "topics": [
+      {
+        "topic_key": "direito_penal",
+        "title": "Direito Penal",
+        "documents": 2,
+        "chunks": 1533
+      },
+      {
+        "topic_key": "legislacao_penal",
+        "title": "Legislação penal especial",
+        "documents": 1,
+        "chunks": 2366
+      },
+      {
+        "topic_key": "processo_penal",
+        "title": "Processo Penal",
+        "documents": 1,
+        "chunks": 1271
+      },
+      {
+        "topic_key": "execucao_penal",
+        "title": "Execução Penal",
+        "documents": 1,
+        "chunks": 317
+      }
+    ],
+    "document_count": 5,
+    "chunk_count": 5487
+  },
+  "valid_query": {
+    "query": "O que é legítima defesa no Código Penal?",
+    "chunks": [
+      {
+        "chunk_id": "coletanea_penal_16ed-p39-c3-8b940eea",
+        "document_id": "coletanea_penal_16ed",
+        "title": "Coletânea básica penal · Senado, 16ª edição",
+        "filename": "Coletanea_basica_penal_16ed.pdf",
+        "page": 39,
+        "topic_key": "legislacao_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "de um a dois terços. Legítima defesa Art. 25. Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.2 Parágrafo único. Observados os requisitos previstos no caput deste artigo, considera-se também em legítima defesa o agente de segurança pública que repele agressão ou risco de 1 Nota do Editor (NE): ver ADPF no 779",
+        "similarity": 0.7458,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "cp_senado_9ed-p17-c2-b3fe7f2b",
+        "document_id": "cp_senado_9ed",
+        "title": "Código Penal · Senado, 9ª edição",
+        "filename": "codigo_penal_9ed.pdf",
+        "page": 17,
+        "topic_key": "direito_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "enfrentar o perigo. § 2o Embora seja razoável exigir-se o sacrifício do direito ameaçado, a pena poderá ser reduzida de um a dois terços. Legítima defesa Art. 25. Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.2 Parágrafo único. Observados os requisitos previstos no caput deste artigo, considera-se também",
+        "similarity": 0.6805,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "cp_camara-p6-c2-c996d2a3",
+        "document_id": "cp_camara",
+        "title": "Código Penal · Câmara dos Deputados",
+        "filename": "decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.pdf",
+        "page": 6,
+        "topic_key": "direito_penal",
+        "edition": "Arquivo fornecido pelo usuário; vigência não verificada",
+        "source_url": "",
+        "text": "dada pela Lei no 7.209, de 11/7/1984) Legítima defesa Art. 25. Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem. (Artigo com redação dada pela Lei no 7.209, de 11/7/1984) (Vide ADPF no 779/2021) Parágrafo único. Observados os requisitos previstos no caput deste artigo, considera-se",
+        "similarity": 0.737,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "cp_camara-p5-c6-c996d2a3",
+        "document_id": "cp_camara",
+        "title": "Código Penal · Câmara dos Deputados",
+        "filename": "decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.pdf",
+        "page": 5,
+        "topic_key": "direito_penal",
+        "edition": "Arquivo fornecido pelo usuário; vigência não verificada",
+        "source_url": "",
+        "text": "no 7.209, de 11/7/1984) Exclusão de ilicitude Art. 23. Não há crime quando o agente pratica o fato: I - em estado de necessidade; II - em legítima defesa; (Vide ADPF no 779/2021) III - em estrito cumprimento de dever legal ou no exercício regular de direito.",
+        "similarity": 0.5215,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "cp_camara-p6-c3-c996d2a3",
+        "document_id": "cp_camara",
+        "title": "Código Penal · Câmara dos Deputados",
+        "filename": "decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.pdf",
+        "page": 6,
+        "topic_key": "direito_penal",
+        "edition": "Arquivo fornecido pelo usuário; vigência não verificada",
+        "source_url": "",
+        "text": "Parágrafo único. Observados os requisitos previstos no caput deste artigo, considera-se também em legítima defesa o agente de segurança pública que repele agressão ou risco de agressão a vítima mantida refém durante a prática de crimes. (Parágrafo único acrescido pela Lei no 13.964, de 24/12/2019, publicada na Edição Extra do DOU de 24/12/2019, em vigor 30 dias após a publicação) (Vide ADPF no 779/2021) TÍTULO III",
+        "similarity": 0.5273,
+        "retrieval_method": "hybrid"
+      }
+    ],
+    "sufficient": true,
+    "threshold": 0.45
+  },
+  "document_page": {
+    "document_id": "coletanea_penal_16ed",
+    "title": "Coletânea básica penal · Senado, 16ª edição",
+    "filename": "Coletanea_basica_penal_16ed.pdf",
+    "edition": "Atualizada até janeiro de 2026",
+    "source_url": "",
+    "total_pages": 269,
+    "page": 39,
+    "text": "39 Código Penal Coação irresistível e obediência hierárquica Art. 22. Se o fato é cometido sob coação irresistível ou em estrita obediência a ordem, não manifestamente ilegal, de superior hierárquico, só é punível o autor da coação ou da ordem. Exclusão de ilicitude Art. 23. Não há crime quando o agente pratica o fato: I – em estado de necessidade; II – em legítima defesa;1 III – em estrito cumprimento de dever legal ou no exercício regular de direito. Excesso punível Parágrafo único. O agente, em qualquer das hipóteses deste artigo, responderá pelo excesso doloso ou culposo. Estado de necessidade Art. 24. Considera-se em estado de necessi - dade quem pratica o fato para salvar de perigo atual, que não provocou por sua vontade, nem podia de outro modo evitar, direito próprio ou alheio, cujo sacrifício, nas circunstâncias, não era razoável exigir-se. § 1o Não pode alegar estado de necessidade quem tinha o dever legal de enfrentar o perigo. § 2o Embora seja razoável exigir-se o sacrifício do direito ameaçado, a pena poderá ser reduzida de um a dois terços. Legítima defesa Art. 25. Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.2 Parágrafo único. Observados os requisitos previstos no caput deste artigo, considera-se também em legítima defesa o agente de segurança pública que repele agressão ou risco de 1 Nota do Editor (NE): ver ADPF no 779. 2 NE: ver ADPF no 779. agressão a vítima mantida refém durante a prática de crimes.3 TÍTULO III – Da Imputabilidade Penal Inimputáveis Art. 26. É isento de pena o agente que, por doença mental ou desenvolvimento mental incompleto ou retardado, era, ao tempo da ação ou da omissão, inteiramente incapaz de entender o caráter ilícito do fato ou de determinar-se de acordo com esse entendimento. Redução de pena Parágrafo único. A pena pode ser reduzida de um a dois terços, se o agente, em virtude de perturbação de saúde mental ou por desenvolvimento mental incompleto ou retardado não era inteiramente capaz de entender o caráter ilícito do fato ou de determinar-se de acordo com esse entendimento. Menores de dezoito anos Art. 27. Os menores de 18 (dezoito) anos são penalmente inimputáveis, ficando sujeitos às normas estabelecidas na legislação especial. Emoção e paixão Art. 28. Não excluem a imputabilidade penal: I – a emoção ou a paixão; Embriaguez II – a embriaguez, voluntária ou culposa, pelo álcool ou substância de efeitos análogos. § 1o É isento de pena o agente que, por embriaguez completa, proveniente de caso fortuito ou força maior, era, ao tempo da ação ou da omissão, inteiramente incapaz de entender o caráter ilícito do fato ou de determinar-se de acordo com esse entendimento. § 2o A pena pode ser reduzida de um a dois terços, se o agente, por embriaguez, proveniente de caso fortuito ou força maior, não possuía, ao tempo da ação ou da omissão, a 3 NE: ver ADPF no 779."
+  },
+  "article_query": {
+    "query": "O que diz o artigo 25 do Código Penal?",
+    "chunks": [
+      {
+        "chunk_id": "cp_camara-p6-c2-c996d2a3",
+        "document_id": "cp_camara",
+        "title": "Código Penal · Câmara dos Deputados",
+        "filename": "decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.pdf",
+        "page": 6,
+        "topic_key": "direito_penal",
+        "edition": "Arquivo fornecido pelo usuário; vigência não verificada",
+        "source_url": "",
+        "text": "dada pela Lei no 7.209, de 11/7/1984) Legítima defesa Art. 25. Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem. (Artigo com redação dada pela Lei no 7.209, de 11/7/1984) (Vide ADPF no 779/2021) Parágrafo único. Observados os requisitos previstos no caput deste artigo, considera-se",
+        "similarity": 0.5038,
+        "retrieval_method": "article_match"
+      },
+      {
+        "chunk_id": "cp_senado_9ed-p17-c2-b3fe7f2b",
+        "document_id": "cp_senado_9ed",
+        "title": "Código Penal · Senado, 9ª edição",
+        "filename": "codigo_penal_9ed.pdf",
+        "page": 17,
+        "topic_key": "direito_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "enfrentar o perigo. § 2o Embora seja razoável exigir-se o sacrifício do direito ameaçado, a pena poderá ser reduzida de um a dois terços. Legítima defesa Art. 25. Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.2 Parágrafo único. Observados os requisitos previstos no caput deste artigo, considera-se também",
+        "similarity": 0.4588,
+        "retrieval_method": "article_match"
+      },
+      {
+        "chunk_id": "cp_camara-p6-c1-c996d2a3",
+        "document_id": "cp_camara",
+        "title": "Código Penal · Câmara dos Deputados",
+        "filename": "decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.pdf",
+        "page": 6,
+        "topic_key": "direito_penal",
+        "edition": "Arquivo fornecido pelo usuário; vigência não verificada",
+        "source_url": "",
+        "text": "próprio ou alheio, cujo sacrifício, nas circunstâncias, não era razoável exigir-se. § 1 o Não pode alegar estado de necessidade quem tinha o dever legal de enfrentar o perigo. § 2 o Embora seja razoável exigir-se o sacrifício do direito ameaçado, a pena poderá ser reduzida de um a dois terços. (Artigo com redação dada pela Lei no 7.209, de 11/7/1984) Legítima defesa Art. 25. En",
+        "similarity": 0.4079,
+        "retrieval_method": "article_match"
+      }
+    ],
+    "sufficient": true,
+    "threshold": 0.45
+  },
+  "missing_article_query": {
+    "query": "O que diz o artigo 99999 do Código Penal?",
+    "chunks": [],
+    "sufficient": false,
+    "threshold": 0.45
+  },
+  "unavailable_information_query": {
+    "query": "Qual a pena do crime intergaláctico de teletransporte de unicórnios no planeta XZ-999?",
+    "chunks": [],
+    "sufficient": false,
+    "threshold": 0.45
+  },
+  "injection_blocked": true
+}

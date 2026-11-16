@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#183f36">
+  <title>Biblioteca Penal — consulta documental</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23183f36'/%3E%3Ctext x='20' y='28' text-anchor='middle' fill='white' font-size='26'%3E§%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar" aria-label="Biblioteca">
+    <a class="brand" href="/"><span class="brand-mark">§</span><span>Biblioteca <strong>Penal</strong></span></a>
+    <button id="new-chat" class="new-chat"><span>＋</span> Nova consulta</button>
+    <p class="eyebrow">SEU ACERVO</p>
+    <div class="library-summary"><strong id="doc-count">—</strong><span>documentos jurídicos</span></div>
+    <div id="document-list" class="document-list"><p class="muted">Carregando acervo…</p></div>
+    <div class="sidebar-bottom"><span class="privacy-dot"></span><div><strong>Base armazenada localmente</strong><p>Os PDFs e o banco vetorial ficam neste computador.</p></div></div>
+    <div class="course">INTELIGÊNCIA ARTIFICIAL II <span>2026 / 02</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar"><div><span class="breadcrumb">Acervo jurídico</span><span class="slash">/</span><strong>Assistente de pesquisa</strong></div><button id="config-button" class="status-badge"><span class="status-dot"></span><span id="connection-status">Verificando base</span></button></header>
+    <div class="workspace">
+      <section class="chat-column" aria-label="Consulta aos documentos">
+        <div class="session-label"><span class="mini-mark">§</span> DIREITO PENAL BRASILEIRO <span class="line"></span><span class="local-label">CONSULTA DOCUMENTAL</span></div>
+        <div id="conversation" class="conversation" role="log" aria-live="polite" aria-relevant="additions">
+          <div id="welcome" class="welcome">
+            <div class="hero-symbol">§<span></span></div>
+            <p class="eyebrow">CONHECIMENTO COM REFERÊNCIA</p>
+            <h1>Uma pergunta.<br>As fontes ao seu alcance.</h1>
+            <p class="intro">Explore o acervo de Direito Penal com respostas fundamentadas nos documentos da sua biblioteca.</p>
+            <div class="suggestions">
+              <button data-question="O que é legítima defesa no Código Penal?"><span class="suggestion-icon">01</span><span>O que é legítima defesa?<small>Conceitos e fundamentos</small></span><span class="arrow">↗</span></button>
+              <button data-question="O que o Código Penal estabelece sobre a tentativa de crime?"><span class="suggestion-icon">02</span><span>Como a tentativa é definida?<small>Aplicação da lei penal</small></span><span class="arrow">↗</span></button>
+              <button data-question="Qual é o objetivo da execução penal?"><span class="suggestion-icon">03</span><span>Qual o objetivo da execução penal?<small>Lei de Execução Penal</small></span><span class="arrow">↗</span></button>
+            </div>
+            <div class="grounding-note"><span>⌕</span><p>Cada consulta recupera trechos do acervo.<br>Você pode conferir a origem e a página no PDF.</p></div>
+          </div>
+        </div>
+        <div class="composer-area">
+          <div class="query-options"><div class="mode-switch" role="group" aria-label="Modo de consulta"><button id="mode-chat" aria-pressed="false">Chat com IA</button><button id="mode-search" class="selected" aria-pressed="true">Buscar nos documentos</button></div><label class="topic-filter"><span class="sr-only">Filtrar por categoria</span><select id="topic"><option value="">Todo o acervo</option><option value="direito_penal">Direito Penal</option><option value="processo_penal">Processo Penal</option><option value="execucao_penal">Execução Penal</option><option value="legislacao_penal">Legislação penal especial</option></select></label></div>
+          <form id="chat-form" class="composer"><label for="message" class="sr-only">Sua pergunta</label><textarea id="message" rows="2" maxlength="2000" placeholder="O que você quer encontrar na legislação penal?" required></textarea><div class="composer-footer"><span id="input-hint">Enter para enviar · Shift + Enter para nova linha</span><button id="send" type="submit" aria-label="Enviar pergunta">↑</button></div></form>
+          <p class="disclaimer">Uso acadêmico. Confira a edição e a vigência das fontes. Cada pergunta é independente.</p>
+        </div>
+      </section>
+      <aside class="context-panel" aria-label="Fontes da consulta"><div class="context-title"><h2>Fontes da consulta</h2><span id="source-count">0</span></div><p class="context-description">A evidência por trás de cada resposta.</p><div id="sources" class="sources"><div class="empty-sources"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="16" y="10" width="32" height="44" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M24 24h16M24 31h16M24 38h10" stroke="currentColor" stroke-width="1.5"/><circle cx="46" cy="46" r="10" fill="#f7f8f5" stroke="currentColor" stroke-width="1.5"/><path d="m53 53 5 5" stroke="currentColor" stroke-width="1.5"/></svg><strong>Sua pesquisa começa aqui</strong><p>Ao fazer uma pergunta, os trechos encontrados aparecerão neste painel.</p></div></div><div class="corpus-info"><span class="eyebrow">SOBRE ESTA BASE</span><p>Legislação penal, processo penal e execução penal.</p><div><span id="chunk-count">—</span> trechos indexados <span class="dot-separator">·</span> 5 documentos</div><small>Há documentos de edições distintas. Similaridade de busca não comprova uma resposta.</small></div></aside>
+    </div>
+  </main>
+</div>
+<dialog id="config-dialog"><button id="close-dialog" class="dialog-close" aria-label="Fechar">×</button><span class="eyebrow">MODELO DE LINGUAGEM</span><h2>Conecte a sua API</h2><p>A busca documental funciona sem uma chave. Para gerar respostas com IA, execute na pasta do projeto:</p><pre>powershell -ExecutionPolicy Bypass -File .\configurar_api.ps1</pre><p>Escolha a API, informe um modelo com suporte a ferramentas e cole a chave no terminal. Depois recarregue esta página.</p><p class="config-note">A chave fica em <code>.env</code>, fora do Git. A API receberá a pergunta e os trechos consultados; os PDFs e os vetores ficam locais.</p><button id="dialog-ok" class="primary-button">Entendi</button></dialog>
+<template id="source-template"><article class="source-card"><div class="source-meta"><span class="source-number"></span><span class="source-page"></span></div><h3></h3><p class="source-edition"></p><details><summary>Ver trecho recuperado</summary><p class="source-text"></p></details><div class="source-bottom"><span class="source-score"></span><a class="source-link" target="_blank" rel="noopener noreferrer">Abrir PDF ↗</a></div></article></template>
+</body></html>
