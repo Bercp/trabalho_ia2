@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     min_similarity: float = Field(default=0.45, ge=0, le=1)
     max_tool_rounds: int = Field(default=3, ge=1, le=5)
     llm_timeout: float = Field(default=180, ge=5, le=600)
+    llm_max_attempts: int = Field(default=3, ge=1, le=3)
+    llm_retry_delay: float = Field(default=1.5, ge=0, le=10)
 
 
 @lru_cache(maxsize=1)

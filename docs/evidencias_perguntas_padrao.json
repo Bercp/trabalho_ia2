@@ -1,0 +1,27 @@
+{
+  "verified_at": "2026-11-17T00:00:36.497Z",
+  "description": "Testes das três sugestões no navegador, com Gemini e ferramentas MCP reais, sem mocks.",
+  "cases": [
+    {
+      "question": "O que o Código Penal estabelece sobre a tentativa de crime?",
+      "status": "Resposta com fontes",
+      "displayed_answer": "Resposta com fontes\n\nO artigo 14 do Código Penal estabelece que o crime é tentado quando, iniciada a execução, não se consuma por circunstâncias alheias à vontade do agente.\n\n[1]Art. 14. Diz-se o crime: Crime consumado I – consumado, quando nele se reúnem todos os elementos de sua definição legal; Tentativa II – tentado, quando, iniciada a execução, não se consuma por circunstâncias alheias à vontade do agente.\n\nO parágrafo único do artigo 14 prevê que, salvo disposição em contrário, a tentativa é punida com a pena correspondente ao crime consumado, diminuída de um a dois terços.\n\n[1]Art. 14. Diz-se o crime: Crime consumado I – consumado, quando nele se reúnem todos os elementos de sua definição legal; Tentativa II – tentado, quando, iniciada a execução, não se consuma por circunstâncias alheias à vontade do agente. Pena de tentativa Parágrafo único. Salvo disposição em contrário, pune-se a tentativa com a pena correspondente ao crime consumado, diminuída de um a dois terços",
+      "tools": "Como a consulta foi feita · 2 chamada(s) MCP\n✓ search_knowledge · solicitada pelo backend · 5 trechos\n✓ get_document · solicitada pelo modelo\n✓ Validação de entrada: Entrada aceita pelas regras básicas de escopo e manipulação.\n✓ Validação de saída: Citações literais, números e correspondência textual verificados; revisão semântica não é garantida.",
+      "screenshot": "pergunta-tentativa-corrigida.jpg"
+    },
+    {
+      "question": "O que é legítima defesa no Código Penal?",
+      "status": "Resposta com fontes",
+      "displayed_answer": "Resposta com fontes\n\nConforme o Art. 25, entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.\n\n[1]Art. 25. Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.",
+      "tools": "Como a consulta foi feita · 2 chamada(s) MCP\n✓ search_knowledge · solicitada pelo backend · 5 trechos\n✓ search_knowledge · solicitada pelo modelo · 5 trechos\n✓ Validação de entrada: Entrada aceita pelas regras básicas de escopo e manipulação.\n✓ Validação de saída: Citações literais, números e correspondência textual verificados; revisão semântica não é garantida.",
+      "screenshot": "pergunta-legitima-defesa-corrigida.jpg"
+    },
+    {
+      "question": "Qual é o objetivo da execução penal?",
+      "status": "Resposta com fontes",
+      "displayed_answer": "Resposta com fontes\n\nA execução penal tem por objetivo efetivar as disposições de sentença ou decisão criminal e proporcionar condições para a harmônica integração social do condenado e do internado.\n\n[2]Art. 1o A execução penal tem por objetivo efetivar as disposições de sentença ou decisão criminal e proporcionar condições para a harmônica integração social do condenado e do internado.",
+      "tools": "Como a consulta foi feita · 2 chamada(s) MCP\n✓ search_knowledge · solicitada pelo backend · 5 trechos\n✓ get_document · solicitada pelo modelo\n✓ Validação de entrada: Entrada aceita pelas regras básicas de escopo e manipulação.\n✓ Validação de saída: Citações literais, números e correspondência textual verificados; revisão semântica não é garantida.",
+      "screenshot": "pergunta-execucao-penal-corrigida.jpg"
+    }
+  ]
+}

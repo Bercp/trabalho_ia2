@@ -8,6 +8,7 @@ import pytest
 
 import penal.orchestrator as pipeline
 from penal.schemas import ChatRequest, Chunk
+from penal.llm import LLMUnavailable
 
 SOURCE = Chunk(chunk_id="real-test-id", document_id="cp", title="CP de teste", filename="cp.pdf", page=1,
                topic_key="direito_penal", edition="Fixture", similarity=0.9,
@@ -73,3 +74,47 @@ def test_blocked_input_calls_neither_mcp_nor_llm(fake_mcp):
     assert result.status == "blocked"
     assert not fake_mcp
     assert model.calls == 0
+
+
+def test_repairs_numeric_citation_without_weakening_guardrail(fake_mcp):
+    class RepairModel(FakeModel):
+        def __init__(self):
+            super().__init__()
+            self.formatted = 0
+
+        async def complete(self, messages, tools=None, require_tool=False, structured=False):
+            if structured:
+                self.formatted += 1
+                if self.formatted == 1:
+                    return {"role": "assistant", "content": json.dumps({"sufficient": True, "claims": [{"text": "O artigo 99 prevê: " + SOURCE.text, "evidence": [{"chunk_id": SOURCE.chunk_id, "quote": SOURCE.text}]}]})}
+            return await super().complete(messages, tools, require_tool, structured)
+
+    model = RepairModel()
+    result = asyncio.run(pipeline.answer_question(ChatRequest(message="O que é crime?"), llm=model))
+    assert model.formatted == 2
+    assert result.status == "answered"
+    assert "99" not in result.answer
+    assert result.guardrails["output"]["passed"]
+
+
+def test_provider_outage_returns_only_literal_local_excerpts(fake_mcp):
+    class UnavailableModel:
+        async def complete(self, *args, **kwargs):
+            raise LLMUnavailable("HTTP 503", retryable=True)
+
+    result = asyncio.run(pipeline.answer_question(ChatRequest(message="O que é crime?"), llm=UnavailableModel()))
+    assert result.status == "document_fallback"
+    assert not result.claims
+    assert result.excerpts[0].quote == SOURCE.text
+    assert result.excerpts[0].chunk_id == SOURCE.chunk_id
+    assert "Não houve geração" in result.answer
+
+
+def test_configuration_error_is_not_disguised_as_success(fake_mcp):
+    class MissingKeyModel:
+        async def complete(self, *args, **kwargs):
+            raise LLMUnavailable("Configure a chave da API.")
+
+    result = asyncio.run(pipeline.answer_question(ChatRequest(message="O que é crime?"), llm=MissingKeyModel()))
+    assert result.status == "llm_unavailable"
+    assert not result.claims and not result.excerpts

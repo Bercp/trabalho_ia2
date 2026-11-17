@@ -1,4 +1,6 @@
-# Biblioteca Penal — RAG + MCP
+# Alunos: Bernardo e Otávio
+
+# Biblioteca Penal — RAG + MCP 
 
 Chat acadêmico em português para consultar um corpus jurídico local. O backend conversa com um **servidor MCP separado via stdio/JSON-RPC**, recupera trechos no **ChromaDB** e permite que um **LLM por API execute function calling**. As respostas incluem citações verificáveis e páginas dos PDFs.
 
@@ -38,6 +40,14 @@ Para Gemini, o endpoint compatível é `https://generativelanguage.googleapis.co
 
 Os PDFs, os vetores e o modelo de embeddings permanecem na máquina. No modo com IA, **a pergunta e os trechos retornados pelas ferramentas são enviados à API**. A ferramenta `get_document` pode enviar uma página completa para conferir o contexto. O aplicativo não envia todos os PDFs nem o banco vetorial. O histórico visual existe apenas na página; **cada pergunta é independente**, sem memória de conversa no backend.
 
+### Falhas temporárias da API
+
+Para erros transitórios HTTP 408/500/502/503/504 e falhas de conexão, o adaptador faz até **três tentativas**, com espera crescente (por padrão 1,5 e 3 segundos), respeitando `Retry-After` e o orçamento total de tempo da chamada. Um `Retry-After` acima de 10 segundos encerra a tentativa e preserva o tempo de espera solicitado pelo provedor, sem repetir antes dele. Erros de configuração, autenticação e cota (400/401/403/404/429) não são repetidos automaticamente.
+
+Se uma falha temporária persistir, o chat retorna `document_fallback`: mostra **trechos literais do corpus no corpo da conversa**, com suas fontes, e informa que não houve geração de explicação por IA. Esse modo mantém a consulta documental utilizável, mas não equivale a uma resposta gerada pelo LLM nem substitui a demonstração do RF03.
+
+Quando uma resposta gerada falha no schema ou na validação documental, há **uma tentativa de correção pelo próprio modelo**, com o motivo da rejeição. Os critérios do guardrail não são afrouxados; se a correção também falhar, a resposta continua bloqueada. O modelo é orientado a incluir o marcador de artigo na citação quando mencionar esse número na explicação. Se ele citar somente o corpo de um artigo e seu cabeçalho estiver na mesma seção do chunk, o código pode ampliar a citação literal para incluir esse cabeçalho; não acrescenta números inventados, não amplia entre artigos diferentes e não altera penas ou prazos. A citação ampliada passa novamente pelo guardrail completo. Uma resposta JSON válida recebida no fim da rodada de ferramentas é reaproveitada para evitar uma chamada extra de geração.
+
 ## Arquitetura
 
 ```mermaid
@@ -59,7 +69,7 @@ flowchart LR
 1. A ingestão extrai e limpa o texto dos PDFs mantendo a página física de cada trecho.
 2. O embedder local `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, executado em ONNX por FastEmbed, gera vetores de **384 dimensões**. Foi escolhido pelo suporte multilíngue, incluindo português, e por executar em CPU sem PyTorch. O primeiro download é público; as consultas seguintes não exigem serviço de embeddings externo.
 3. O chunking usa o tokenizer do próprio modelo: **110 tokens e 20 de sobreposição**. Esse modelo trunca em 128 tokens; a janela de 110 deixa margem para tokens especiais e pequenas diferenças ao retokenizar as bordas. A sobreposição (~18%) preserva parte das frases nas fronteiras. O limite curto é uma escolha de eficiência para este MVP; trechos podem terminar no meio de um artigo. `get_document` e o link do PDF permitem recuperar o contexto. Cada chunk pertence a uma única página.
-4. ChromaDB persiste o índice HNSW com distância cosseno. A recuperação é **híbrida**: retira termos genéricos de enquadramento da pergunta, faz uma busca vetorial pelo foco e combina o ranking com BM25 local por Reciprocal Rank Fusion (constante 40; peso vetorial 1 e lexical 1,5). Retorna `top_k=5`, retira duplicatas exatas e filtra similaridades menores que `0.45`. Quando há termos centrais, exige que pelo menos um apareça no trecho, exceto se a similaridade for ≥0,80. A similaridade exibida é o cosseno com o **foco da pergunta**, não o score híbrido. Esses limites são configurações iniciais, **não probabilidades nem prova de suficiência**; perguntas específicas podem recuperar trechos que apenas mencionam o tema. O filtro lexical pode reduzir a recuperação de paráfrases sem palavras em comum.
+4. ChromaDB persiste o índice HNSW com distância cosseno. A recuperação é **híbrida**: retira termos genéricos de enquadramento da pergunta, faz uma busca vetorial pelo foco e combina o ranking com BM25 local por Reciprocal Rank Fusion (constante 40; peso vetorial 1 e lexical 1,5). Se sobra apenas um termo de conteúdo, como “tentativa”, preserva o enquadramento da pergunta original para não perder seu sentido jurídico; uma consulta de uma palavra recebe o contexto “no direito penal”. Retorna `top_k=5`, retira duplicatas exatas e filtra similaridades menores que `0.45`. Quando há termos centrais, exige que pelo menos um apareça no trecho, exceto se a similaridade for ≥0,80. A similaridade exibida é o cosseno com o **foco da pergunta**, não o score híbrido. Esses limites são configurações iniciais, **não probabilidades nem prova de suficiência**; perguntas específicas podem recuperar trechos que apenas mencionam o tema. O filtro lexical pode reduzir a recuperação de paráfrases sem palavras em comum.
    Referências explícitas, como “artigo 25”, também recebem busca por marcador de artigo. Nesse caso, são retornados apenas os trechos com o marcador solicitado, identificados com `retrieval_method=article_match`; podem passar abaixo do limiar vetorial, pois o critério é a correspondência exata do artigo. Se não houver esse marcador no corpus/filtro, a busca retorna vazia. Artigos com o mesmo número em leis diferentes ainda exigem conferir o documento de origem ou selecionar uma categoria.
 5. O backend abre um subprocesso MCP, faz `initialize`, descobre as ferramentas com `tools/list` e as invoca com `tools/call`. A busca inicial é obrigatória e ocorre via MCP. Em seguida, o modelo escolhe ferramentas por function calling; o código executa essas chamadas pelo mesmo cliente MCP, acrescenta os resultados e solicita JSON estruturado. Máximo de três rodadas e quatro chamadas por rodada, mais a busca inicial.
 6. O retorno é validado com Pydantic. Citações precisam existir literalmente em chunks realmente recuperados, os IDs devem ser conhecidos, números precisam constar da evidência e a afirmação precisa de correspondência lexical mínima. A interface mostra as afirmações aprovadas, suas citações e todas as fontes recuperadas. Se a resposta falhar, o texto gerado é bloqueado; os trechos continuam disponíveis para consulta.
@@ -84,7 +94,7 @@ Esse processo usa stdio para o protocolo, não é uma página HTTP. O servidor F
 
 ## Corpus e versões
 
-O enunciado exige pelo menos cinco documentos do domínio. Os **três PDFs jurídicos fornecidos** foram complementados por **dois documentos oficiais distintos**, baixados da Câmara dos Deputados. O enunciado e os slides de MCP/RAG são materiais de referência do desenvolvimento e **não foram indexados como legislação**.
+Os 5 Arquivos de base do projeto são documentos fornecidos pelo Senado Federal e a Camara dos deputados.
 
 | Documento | Origem / edição |
 |---|---|

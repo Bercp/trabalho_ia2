@@ -77,6 +77,10 @@ class KnowledgeStore:
         kwargs = {"where": {"topic_key": topic_key}} if topic_key else {}
         terms = query_terms(query)
         focus = " ".join(terms) or query
+        if len(terms) == 1 and not terms[0].isdigit():
+            # Uma palavra ambígua, como "tentativa", perde o sentido jurídico
+            # se retirar todo o enquadramento da pergunta antes do embedding.
+            focus = query if len(query.split()) > 1 else f"{query} no direito penal"
         article_numbers = re.findall(r"\bart(?:igo)?\.?\s*(\d+(?:-[a-z])?)", unaccent(query))
         article_patterns = [re.compile(r"\bart\.?\s*" + re.escape(number) + r"(?:[º°o])?(?![\da-z]|-[a-z])") for number in article_numbers]
         article_ids = {id_ for id_, row in self.rows.items() if article_patterns

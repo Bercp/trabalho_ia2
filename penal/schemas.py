@@ -81,6 +81,7 @@ class ChatResponse(BaseModel):
     status: str
     answer: str
     claims: list[Claim] = Field(default_factory=list)
+    excerpts: list[Citation] = Field(default_factory=list)
     sources: list[Chunk] = Field(default_factory=list)
     tools: list[ToolEvent] = Field(default_factory=list)
     guardrails: dict = Field(default_factory=dict)

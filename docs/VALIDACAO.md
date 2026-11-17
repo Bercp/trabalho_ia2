@@ -4,7 +4,7 @@ Ambiente: Windows, Python 3.13, CPU, dependências registradas em `requirements.
 
 | Verificação | Resultado |
 |---|---|
-| Testes automatizados | 30 aprovados; um aviso de depreciação da biblioteca de teste HTTP |
+| Testes automatizados | 46 aprovados; um aviso de depreciação da biblioteca de teste HTTP |
 | Corpus local | 5 PDFs, 734 páginas físicas, 5.487 chunks |
 | Protocolo MCP | `initialize`, descoberta e execução real das 3 ferramentas por stdio |
 | Consulta de legítima defesa | 5 trechos recuperados, incluindo o artigo pertinente |
@@ -19,7 +19,7 @@ Ambiente: Windows, Python 3.13, CPU, dependências registradas em `requirements.
 
 O arquivo [`evidencias_mcp.json`](evidencias_mcp.json) foi produzido pela integração real entre o cliente MCP, o servidor MCP, os embeddings e o ChromaDB. Os testes de orquestração e do adaptador HTTP usam doubles explícitos; **não são evidência de inferência com LLM externo**.
 
-Atualização da auditoria: o Gemini foi configurado e o fluxo real foi testado. A consulta válida executou uma ferramenta solicitada pelo modelo, mas a resposta foi bloqueada na validação de números/artigos. Os cenários de informação ausente, prompt injection e pergunta fora do domínio passaram. Veja [`evidencias_gemini.json`](evidencias_gemini.json) e a [`auditoria de requisitos`](REVISAO_REQUISITOS.md). Ainda falta uma demonstração atual aprovada de resposta válida com o LLM, além do fortalecimento dos guardrails descrito na auditoria.
+Na auditoria anterior, o teste com Gemini foi bloqueado pela validação de números/artigos; esse registro histórico está em [`evidencias_gemini.json`](evidencias_gemini.json). Após corrigir a recuperação de consultas curtas, o tratamento de falhas temporárias e as citações de artigos, **as três perguntas iniciais passaram na interface com Gemini real**, com ferramentas MCP e validação de saída. Veja o [registro da correção](CORRECAO_PERGUNTAS_PADRAO.md) e [`evidencias_perguntas_padrao.json`](evidencias_perguntas_padrao.json). As limitações semânticas dos guardrails descritas na [auditoria](REVISAO_REQUISITOS.md) continuam válidas.
 
 Registros da interface, em modo de busca documental sem LLM:
 

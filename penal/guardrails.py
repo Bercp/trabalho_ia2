@@ -49,6 +49,45 @@ def words(text: str) -> set[str]:
     return {w for w in re.findall(r"[a-z]{3,}", unaccent(text)) if w not in STOPWORDS}
 
 
+def complete_article_citations(answer: GroundedAnswer, chunks: list[Chunk]) -> GroundedAnswer:
+    """Inclui o cabeçalho real do mesmo artigo quando o modelo citou só seu corpo.
+
+    Não corrige texto inventado, penas ou prazos; apenas amplia uma citação já
+    literal, dentro da seção de artigo que realmente contém o trecho citado.
+    O resultado ainda precisa passar integralmente por validate_output.
+    """
+    result = answer.model_copy(deep=True)
+    by_id = {chunk.chunk_id: chunk for chunk in chunks}
+    article_re = re.compile(r"\bart(?:igo)?\.?\s*(\d+)(?:[º°o])?(?:-([a-z]))?", re.I)
+    for claim in result.claims:
+        quoted = " ".join(c.quote for c in claim.evidence)
+        missing = set(re.findall(r"\d+", claim.text)) - set(re.findall(r"\d+", quoted))
+        named_articles = {m.group(1) for m in article_re.finditer(claim.text)}
+        if not missing or not missing <= named_articles:
+            continue
+        for citation in claim.evidence:
+            source = by_id.get(citation.chunk_id)
+            if source is None or normalize(citation.quote) not in normalize(source.text):
+                continue
+            original = unicodedata.normalize("NFKC", source.text)
+            quote_pattern = r"\s+".join(re.escape(part) for part in unicodedata.normalize("NFKC", citation.quote).split())
+            match = re.search(quote_pattern, original, re.I)
+            if match is None:
+                continue
+            markers = list(article_re.finditer(original))
+            preceding = [m for m in markers if m.start() <= match.start()]
+            if not preceding:
+                continue
+            marker = preceding[-1]
+            end = next((m.start() for m in markers if m.start() > marker.start()), len(original))
+            if marker.group(1) not in missing or match.end() > end:
+                continue
+            expanded = original[marker.start():end].strip()
+            if 25 <= len(expanded) <= 1800:
+                citation.quote = expanded
+    return result
+
+
 def validate_output(answer: GroundedAnswer, chunks: list[Chunk]) -> tuple[bool, str]:
     if not answer.sufficient:
         return not answer.claims, "O modelo declarou evidência insuficiente."

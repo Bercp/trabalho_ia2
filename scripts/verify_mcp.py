@@ -23,6 +23,10 @@ async def main():
         source = valid["chunks"][0]
         document = await call_tool(session, "get_document", {"document_id": source["document_id"], "page": source["page"]})
         assert source["text"] in document["text"]
+        attempt = await call_tool(session, "search_knowledge", {"query": "O que o Código Penal estabelece sobre a tentativa de crime?", "top_k": 5})
+        assert any("tentado" in chunk["text"].lower() for chunk in attempt["chunks"]), "Pergunta padrão sobre tentativa perdeu o contexto jurídico."
+        execution = await call_tool(session, "search_knowledge", {"query": "Qual é o objetivo da execução penal?", "top_k": 5})
+        assert any("integração social" in chunk["text"].lower() for chunk in execution["chunks"])
         article = await call_tool(session, "search_knowledge", {"query": "O que diz o artigo 25 do Código Penal?", "top_k": 5, "topic_key": "direito_penal"})
         assert any("defesa" in chunk["text"].lower() for chunk in article["chunks"])
         assert all(chunk["topic_key"] == "direito_penal" for chunk in article["chunks"])
@@ -40,6 +44,7 @@ async def main():
         report = {"description": "MCP/Chroma reais; nenhuma geração por LLM neste teste", "tools_discovered": [t.name for t in tools.tools],
                   "topics": topics, "valid_query": valid, "document_page": document, "article_query": article,
                   "missing_article_query": missing_article,
+                  "attempt_query": attempt, "execution_query": execution,
                   "unavailable_information_query": unknown, "injection_blocked": True}
         target = ROOT / "docs/evidencias_mcp.json"
         target.parent.mkdir(exist_ok=True)

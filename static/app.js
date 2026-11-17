@@ -3,7 +3,7 @@ let mode = 'search';
 let busy = false;
 let lastSources = [];
 let state = null;
-const statusLabels = {answered:'Resposta com fontes', search_only:'Busca documental · sem LLM', blocked:'Entrada bloqueada', insufficient_evidence:'Evidência insuficiente', output_blocked:'Resposta bloqueada pela validação', llm_unavailable:'API não disponível'};
+const statusLabels = {answered:'Resposta com fontes', search_only:'Busca documental · sem LLM', document_fallback:'Consulta local · IA temporariamente indisponível', blocked:'Entrada bloqueada', insufficient_evidence:'Evidência insuficiente', output_blocked:'Resposta bloqueada pela validação', llm_unavailable:'API não disponível'};
 
 function element(tag, className, content) {
   const node = document.createElement(tag);
@@ -39,6 +39,21 @@ function renderSources(sources) {
     $('#sources').append(card);
   });
 }
+function appendEvidence(container, citations, sources) {
+  for (const citation of citations) {
+    const index = sources.findIndex(s => s.chunk_id === citation.chunk_id);
+    const quote = element('blockquote','');
+    const button = element('button','citation-link',`[${index + 1}]`);
+    button.title = 'Ver fonte e página';
+    button.addEventListener('click', () => {
+      renderSources(sources);
+      const target = $(`#source-${index + 1}`);
+      if (target) { target.querySelector('details').open = true; target.scrollIntoView({behavior:'smooth', block:'center'}); }
+    });
+    quote.append(button,document.createTextNode(citation.quote));
+    container.append(quote);
+  }
+}
 function appendMessage(role, text, data) {
   const article = element('article', `message ${role}`);
   if (data && !['answered','search_only'].includes(data.status)) article.classList.add('warning');
@@ -52,29 +67,23 @@ function appendMessage(role, text, data) {
     data.claims.forEach(claim => {
       const section = element('section','claim');
       section.append(element('p','',claim.text));
-      claim.evidence.forEach(citation => {
-        const quote = element('blockquote','');
-        const index = data.sources.findIndex(s => s.chunk_id === citation.chunk_id);
-        const button = element('button','citation-link',`[${index + 1}]`);
-        button.title = 'Ver fonte e página';
-        button.addEventListener('click', () => {
-          renderSources(data.sources);
-          const target = $(`#source-${index + 1}`);
-          if (target) { target.querySelector('details').open = true; target.scrollIntoView({behavior:'smooth', block:'center'}); }
-        });
-        quote.append(button,document.createTextNode(citation.quote));
-        section.append(quote);
-      });
+      appendEvidence(section, claim.evidence, data.sources);
       body.append(section);
     });
   } else body.append(element('p','',text));
+  if (data?.excerpts?.length) {
+    const section = element('section','claim fallback-excerpts');
+    appendEvidence(section, data.excerpts, data.sources);
+    body.append(section);
+  }
   article.append(body);
   if (data?.tools?.length) {
     const details = element('details','diagnostics');
     details.append(element('summary','',`Como a consulta foi feita · ${data.tools.length} chamada(s) MCP`));
     const list = element('ul','');
     for (const tool of data.tools) list.append(element('li','',`${tool.ok ? '✓' : '×'} ${tool.name} · ${tool.initiated_by === 'llm' ? 'solicitada pelo modelo' : 'solicitada pelo backend'}${tool.chunks ? ` · ${tool.chunks} trechos` : ''}`));
-    for (const [name,result] of Object.entries(data.guardrails || {})) list.append(element('li','',`${result.passed ? '✓' : '×'} Validação de ${name === 'input' ? 'entrada' : 'saída'}: ${result.detail}`));
+    const guardrailNames = {input:'entrada',output:'saída',availability:'disponibilidade da IA'};
+    for (const [name,result] of Object.entries(data.guardrails || {})) list.append(element('li','',`${result.passed ? '✓' : '×'} Validação de ${guardrailNames[name] || name}: ${result.detail}`));
     details.append(list); article.append(details);
   }
   $('#conversation').append(article);

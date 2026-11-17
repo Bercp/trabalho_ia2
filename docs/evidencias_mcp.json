@@ -169,6 +169,150 @@
     "sufficient": false,
     "threshold": 0.45
   },
+  "attempt_query": {
+    "query": "O que o Código Penal estabelece sobre a tentativa de crime?",
+    "chunks": [
+      {
+        "chunk_id": "coletanea_penal_16ed-p38-c0-8b940eea",
+        "document_id": "coletanea_penal_16ed",
+        "title": "Coletânea básica penal · Senado, 16ª edição",
+        "filename": "Coletanea_basica_penal_16ed.pdf",
+        "page": 38,
+        "topic_key": "legislacao_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "38 Coletânea básica penal Art. 14. Diz-se o crime: Crime consumado I – consumado, quando nele se reúnem todos os elementos de sua definição legal; Tentativa II – tentado, quando, iniciada a execução, não se consuma por circunstâncias alheias à vontade do agente. Pena de tentativa Parágrafo único. Salvo disposição em contrário, pune-se a tentativa com a pena correspondente ao crime consumado, diminuída de um a dois terços",
+        "similarity": 0.7618,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "cp_camara-p4-c1-c996d2a3",
+        "document_id": "cp_camara",
+        "title": "Código Penal · Câmara dos Deputados",
+        "filename": "decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.pdf",
+        "page": 4,
+        "topic_key": "direito_penal",
+        "edition": "Arquivo fornecido pelo usuário; vigência não verificada",
+        "source_url": "",
+        "text": ". (Artigo com redação dada pela Lei no 7.209, de 11/7/1984) Art. 14. Diz-se o crime: Crime consumado I - consumado, quando nele se reúnem todos os elementos de sua definição legal; Tentativa II - tentado, quando, iniciada a execução, não se consuma por circunstâncias alheias à vontade do agente. Pena da tentativa Parágrafo único. Salvo disposição em contrário, pune-se a tentativa com a pena correspondente ao crime",
+        "similarity": 0.7603,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "cp_senado_9ed-p14-c2-b3fe7f2b",
+        "document_id": "cp_senado_9ed",
+        "title": "Código Penal · Senado, 9ª edição",
+        "filename": "codigo_penal_9ed.pdf",
+        "page": 14,
+        "topic_key": "direito_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "responsabilidade de impedir o resultado; c) com seu comportamento anterior, criou o risco da ocorrência do resultado. Art. 14. Diz-se o crime: Crime consumado I – consumado, quando nele se reúnem todos os elementos de sua definição legal; Tentativa II – tentado, quando, iniciada a execução, não se consuma por circunstâncias alheias à vontade do agente. Pena de tentativa Parágrafo único. Salvo disposição em contrário, pune-se a tentativa com a",
+        "similarity": 0.7407,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "cp_senado_9ed-p14-c3-b3fe7f2b",
+        "document_id": "cp_senado_9ed",
+        "title": "Código Penal · Senado, 9ª edição",
+        "filename": "codigo_penal_9ed.pdf",
+        "page": 14,
+        "topic_key": "direito_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "tentativa Parágrafo único. Salvo disposição em contrário, pune-se a tentativa com a pena correspondente ao crime consumado, diminuída de um a dois terços.",
+        "similarity": 0.5882,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "coletanea_penal_16ed-p249-c2-8b940eea",
+        "document_id": "coletanea_penal_16ed",
+        "title": "Coletânea básica penal · Senado, 16ª edição",
+        "filename": "Coletanea_basica_penal_16ed.pdf",
+        "page": 249,
+        "topic_key": "legislacao_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "um ou de outra, qualquer efeito jurídico. Tentativa Art. 4 o Não é punível a tentativa de contra - venção. Penas principais Art. 5 o As penas principais são: I – prisão simples; II – multa. Prisão simples Art. 6o A pena de prisão simples deve ser cumprida, sem rigor penitenciário, em estabelecimento especial ou seção especial de prisão comum, em regime semiaberto ou aberto. § 1o O condenado a pena de prisão simples fica sempre separado dos condenados",
+        "similarity": 0.5314,
+        "retrieval_method": "hybrid"
+      }
+    ],
+    "sufficient": true,
+    "threshold": 0.45
+  },
+  "execution_query": {
+    "query": "Qual é o objetivo da execução penal?",
+    "chunks": [
+      {
+        "chunk_id": "coletanea_penal_16ed-p121-c6-8b940eea",
+        "document_id": "coletanea_penal_16ed",
+        "title": "Coletânea básica penal · Senado, 16ª edição",
+        "filename": "Coletanea_basica_penal_16ed.pdf",
+        "page": 121,
+        "topic_key": "legislacao_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "– Da Competência pelo Lugar da Infração Art. 70. A competência será, de regra, determi‐ nada pelo lugar em que se consumar a infração, ou, no caso de tentativa, pelo lugar em que for praticado o último ato de execução. § 1o Se, iniciada a execução no território nacional, a infração se consumar fora dele, a competência será determinada pelo lugar em que tiver sido praticado, no Brasil, o último ato de execução. § 2o Quando o último ato de execução",
+        "similarity": 0.6112,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "lep_camara-p1-c1-d5413b9e",
+        "document_id": "lep_camara",
+        "title": "Lei de Execução Penal · Câmara dos Deputados",
+        "filename": "lei_execucao_penal_camara.pdf",
+        "page": 1,
+        "topic_key": "execucao_penal",
+        "edition": "Cópia oficial consultada em 16/11/2026; conferir vigência",
+        "source_url": "https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.pdf",
+        "text": "PENAL Art. 1o A execução penal tem por objetivo efetivar as disposições de sentença ou decisão criminal e proporcionar condições para a harmônica integração social do condenado e do internado. Art. 2o A jurisdição penal dos juízes ou tribunais da justiça ordinária, em todo o território nacional, será exercida, no processo de execução, na conformidade desta Lei e do Código de Processo Penal. Parágrafo único. Esta Lei aplicar-se-á igualmente ao preso provisório e ao condenado",
+        "similarity": 0.5482,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "coletanea_penal_16ed-p225-c4-8b940eea",
+        "document_id": "coletanea_penal_16ed",
+        "title": "Coletânea básica penal · Senado, 16ª edição",
+        "filename": "Coletanea_basica_penal_16ed.pdf",
+        "page": 225,
+        "topic_key": "legislacao_penal",
+        "edition": "Atualizada até janeiro de 2026",
+        "source_url": "",
+        "text": "ser gerenciado por fundação, ou empresa pública, com autonomia administrativa, e terá por objetivo a formação profissional do condenado. § 1o Nessa hipótese, incumbirá à entidade gerenciadora promover e supervisionar a produção, com critérios e métodos empresariais, encarregar-se de sua comercialização, bem como suportar despesas, inclusive pagamento de remuneração adequada. § 2o Os governos federal, estadual e municipal poderão celebrar convênio com a iniciativa privada, para implantação de oficinas de trabalho",
+        "similarity": 0.5637,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "cpp_camara-p16-c0-2b265b97",
+        "document_id": "cpp_camara",
+        "title": "Código de Processo Penal · Câmara dos Deputados",
+        "filename": "codigo_processo_penal_camara.pdf",
+        "page": 16,
+        "topic_key": "processo_penal",
+        "edition": "Cópia oficial consultada em 16/11/2026; conferir vigência",
+        "source_url": "https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.pdf",
+        "text": "CAPÍTULO I DA COMPETÊNCIA PELO LUGAR DA INFRAÇÃO Art. 70. A competência será, de regra, determinada pelo lugar em que se consumar a infração, ou, no caso de tentativa, pelo lugar em que for praticado o último ato de execução. § 1o Se, iniciada a execução no território nacional, a infração se consumar fora dele, a competência será determinada pelo lugar em que tiver sido praticado, no Brasil, o último ato de execução. § 2o Quando o último ato",
+        "similarity": 0.6105,
+        "retrieval_method": "hybrid"
+      },
+      {
+        "chunk_id": "lep_camara-p1-c0-d5413b9e",
+        "document_id": "lep_camara",
+        "title": "Lei de Execução Penal · Câmara dos Deputados",
+        "filename": "lei_execucao_penal_camara.pdf",
+        "page": 1,
+        "topic_key": "execucao_penal",
+        "edition": "Cópia oficial consultada em 16/11/2026; conferir vigência",
+        "source_url": "https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.pdf",
+        "text": "CÂMARA DOS DEPUTADOS Centro de Documentação e Informação LEI No 7.210, DE 11 DE JULHO DE 1984 Institui a Lei de Execução Penal. O PRESIDENTE DA REPÚBLICA Faço saber que o CONGRESSO NACIONAL decreta e eu sanciono a seguinte Lei: TÍTULO I DO OBJETO E DA APLICAÇÃO DA LEI DE EXECUÇÃO PENAL Art. 1o A execução penal tem por objetivo efetivar as disposições de sentença",
+        "similarity": 0.5257,
+        "retrieval_method": "hybrid"
+      }
+    ],
+    "sufficient": true,
+    "threshold": 0.45
+  },
   "unavailable_information_query": {
     "query": "Qual a pena do crime intergaláctico de teletransporte de unicórnios no planeta XZ-999?",
     "chunks": [],

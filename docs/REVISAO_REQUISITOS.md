@@ -2,6 +2,8 @@
 
 Referência: enunciado da atividade avaliativa fornecido pelo usuário, requisitos RF01 a RF05 e seção Entrega.
 
+**Atualização posterior:** após a correção das perguntas iniciais, as três sugestões passaram na interface com Gemini real, ferramentas MCP e validação de saída. A falha de resposta válida registrada abaixo representa a versão anterior; veja o [registro da correção](CORRECAO_PERGUNTAS_PADRAO.md). As duas limitações semânticas dos guardrails e as etapas de entrega não foram encerradas por essa correção.
+
 ## Conclusão
 
 O projeto tem todos os componentes previstos, mas ainda não deve ser apresentado como 100% concluído em funcionamento e entrega. RAG, servidor MCP e interface estão verificados. A integração real com Gemini funciona, mas uma consulta válida foi bloqueada pela validação de saída. Foram reproduzidas duas limitações concretas dos guardrails. Não há commits nem remoto GitHub configurado neste checkout.
